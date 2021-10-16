@@ -1,0 +1,65 @@
+
+Traffic simulator: simularea diferitor intersectii
+Pentru implementare am pornit de la creearea cate o clasa pentru fiecare tip de
+intersectie. La citire in dependeta de task mi-am creeat intersectia si am
+adaugato in Main.intersection, apoi in dependeta de task am realizat funtia de
+rulare a fiecarui thread.
+simple_semaphore - n-am avut nevoie de o clasa, ajunge masina la intersectie
+                   asteapta timpul necesar si apoi trece mai departe.
+simple_n_roundabout - ajunge la intersectie, dar intra doar x masini in sensul
+                      giratoriu si dupa timpul de traversare iese.
+Am folosit clasa SimpleIntersection care are un semafor(x) si timpul de
+traversare a intersectiei, aici se realizeaza asteptarea.
+simple_strict_1_car_roundabout - ajung la intersectie, se verifica daca au
+                                 sosit cate o masina de pe fiecare directie,
+                                 dupa pornec traficul cate o masina de pe
+                                 fiecare directie cate o masina si apoi ies.
+Am folosit clasa SimpleIntersectionStrict1Car care are timpul, star(daca au
+pornit masinile) si o lista de semafoare pentru a trece doar cate o masina per
+sens, aici se realizeaza asteptarea si verificarea daca au pornit masinile.
+simple_strict_x_car_roundabout - ajung in intersectie, astept toate masinile,
+                                 intra de pe fiecare sens cate x masini, apoi
+                                 dupa timpul de traversare astept x masini de
+                                 pe toate benzile.
+Am folosit clasa SimpleIntersectionStrictXCar unde am timpul, o bariera pentru
+toate masinile, o bariera pentru toate benzile cate x masini si cate un semafor
+pentru fiecare banda, aici se realizeaza astepatea masinilor si permiterea de a
+intra in intersectie.
+simple_max_x_car_roundabout - ajunge in intersectie, intra daca sunt mai putine
+                              de x masini si dupa timpul de traversare iese.
+Am folosit clasa SimpleIntersectionMaxXCar unde am timpul de traversare si cate
+un semafor pentru fiecare sens, aici se realizeaza asteptarea daca sunt x masini
+pe un sens.
+priority_intersection - daca are prioritate 1 ajunge in intersectie intra doar
+                        daca nu exista altele cu prioritate mai mare apoi iese.
+                        celalte intra instant si ies dupa un timp de traversare
+Am folosit clasa IntersectionPriority unde am nr de masini cu prioritate si 2
+semafoare unul folosit pentru verficarea daca exista masini cu prioritate si
+calalt pentru masinile cu prioritate, aici se realizeaza asteptarea si
+verificarea daca sunt masini cu prioritate in intersectie.
+crosswalk - pana nu se termina pietonii verific daca sunt la semafor sau se
+            ingramdesc, cand trec afisez rosu cand nu verde, la sfarsit dupa
+            ce-au trecut pietonii si semafoarele sunt rosii le fac verde pentru
+            a trece mereu.
+Am folosit clasa IntersectionPedestrian unde am pietonii, mesajele masinilor,
+si o bariera pentru a astepta toate masinile dupa trecerea pietonilor, aici se
+realizeaza asteptarea masinilor si verficarea pietonilor.
+simple_maintenance - ajung toate masinile in intersectie, incep de pe sensul 0
+                     sa treaca cate x masini apoi alternativ de pe 1 pana trec
+                     toate masinile.
+Am folosit clasa SimpleIntersectionMaintenance am cate un semafor si o beriera
+pentru ambele sensuri, aici se realizeaza permiterea de pe un sens si se 
+asteapta sa treaca toate x.
+complex_maintenance - ajung in intersectie se astepata toate masinile si apoi
+                      in ordinea in care au venit ies.
+Am folosit clasa ComplexIntersectionMaintenance unde numarul de banzi vechi si
+noi, numaru de masini de pe o banda la un timp, un hashmap cu penzile vechi
+atribuite noilor benzi si un hashmap cu masinile de pe benzile vezhi, un array
+care zice cate masini au trecut de pe o banda veche, un semafor si o bariera.
+Aici se realizeaza extragerea masinilor si permiterea de a trece. Se extrage
+din coada de benzi noi prima banda si apoi prima masina si se lasa sa treaca,
+daca au trecut de pe acea banda veche x masini se introduce la sfarsit in coada
+sau se sterge daca este goala.
+railroad - ajung in intersectie, asteapta toate masinile doar o masina zice
+           ca a trecut trenul, le astept pe toate si apoi trec in ordinea care
+           au ajuns la intersectie.
